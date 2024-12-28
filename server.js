@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const loginotproute = require('./routes/loginotproute')
+const productRoutes = require('./routes/productRoutes');
+const razorpayroute = require('./routes/razorpayroute');
 
 dotenv.config();
 
@@ -16,6 +18,8 @@ app.use(cors());
 app.use(express.json());
 app.use('/route', userRoutes);
 app.use('/route', loginotproute)
+app.use('/route', productRoutes);
+app.use('/route', razorpayroute);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
