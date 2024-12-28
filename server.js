@@ -6,6 +6,7 @@ const userRoutes = require('./routes/userRoutes');
 const loginotproute = require('./routes/loginotproute')
 const productRoutes = require('./routes/productRoutes');
 const razorpayroute = require('./routes/razorpayroute');
+const orderRoutes = require('./routes/ordersRoute');
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ app.use('/route', userRoutes);
 app.use('/route', loginotproute)
 app.use('/route', productRoutes);
 app.use('/route', razorpayroute);
+app.use('/route', orderRoutes);
+
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)

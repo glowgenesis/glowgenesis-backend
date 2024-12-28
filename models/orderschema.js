@@ -1,15 +1,14 @@
+// models/Order.js
 const mongoose = require('mongoose');
 
-const orderSchema = new mongoose.Schema({
-  razorpay_order_id: { type: String, required: true },
-  productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
-  amount: { type: Number, required: true },
-  currency: { type: String, required: true },
-  receipt: { type: String, required: true },
-  notes: { type: Object, default: {} },
-  created_at: { type: Date, default: Date.now },
+// Create Order Schema
+const OrderSchema = new mongoose.Schema({
+  productId: { type: [String], required: true, ref: 'Product' }, // Array of product IDs
+  billAmount: { type: Number, required: true }, // Total bill amount
+  email: { type: String, required: true }, // Customer email
+  createdAt: { type: Date, default: Date.now }, // Timestamp
 });
 
-const Order = mongoose.model('Order', orderSchema);
+const Order = mongoose.model('Order', OrderSchema);
 
 module.exports = Order;
