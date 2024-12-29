@@ -1,0 +1,32 @@
+name: Deploy to EC2
+
+on:
+  workflow_dispatch: # This allows manual trigger
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux] # Use your self-hosted EC2 runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no -i /path/to/your/private-key.pem ubuntu@backend.glowgenesis.in << 'EOF'
+            cd /home/ubuntu/glowgenesis-backend
+            git pull origin main
+            npm install
+            pm2 restart server.js  # or pm2 restart server if you're using a specific pm2 process name
+          EOF
+        env:
+          PRIVATE_KEY: ${{ secrets.EC2 }} # Add your private key to GitHub secrets
